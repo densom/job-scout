@@ -1,0 +1,198 @@
+/* All rules scoped under #job-scout-sidebar to avoid interfering with LinkedIn */
+
+#job-scout-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 100vh;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-left: 1px solid #d0d7de;
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.08);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  color: #1a1a1a;
+  transition: width 0.2s ease;
+  overflow: hidden;
+}
+
+#job-scout-sidebar.collapsed {
+  width: 36px;
+}
+
+#job-scout-sidebar.collapsed #job-scout-body {
+  display: none;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+#job-scout-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #0a66c2;
+  color: #ffffff;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+#job-scout-title-bar {
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#job-scout-sidebar.collapsed #job-scout-title-bar {
+  display: none;
+}
+
+#job-scout-toggle {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+
+#job-scout-toggle:hover {
+  opacity: 1;
+}
+
+/* ── Body ────────────────────────────────────────────────────────────────── */
+
+#job-scout-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Sections ────────────────────────────────────────────────────────────── */
+
+#job-scout-sidebar .job-scout-section {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#job-scout-sidebar .job-scout-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #57606a;
+}
+
+#job-scout-sidebar .job-scout-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.4;
+}
+
+#job-scout-sidebar .job-scout-sub {
+  font-size: 12px;
+  color: #444d56;
+  line-height: 1.5;
+}
+
+#job-scout-sidebar .job-scout-bullets {
+  margin: 4px 0 0 0;
+  padding-left: 18px;
+  list-style: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#job-scout-sidebar .job-scout-bullets li {
+  font-size: 12px;
+  color: #444d56;
+  line-height: 1.4;
+}
+
+/* ── Spinner ─────────────────────────────────────────────────────────────── */
+
+#job-scout-sidebar .job-scout-spinner-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px 0;
+  color: #57606a;
+  font-size: 12px;
+}
+
+#job-scout-sidebar .job-scout-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #d0d7de;
+  border-top-color: #0a66c2;
+  border-radius: 50%;
+  animation: job-scout-spin 0.75s linear infinite;
+}
+
+@keyframes job-scout-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Error / Warning ─────────────────────────────────────────────────────── */
+
+#job-scout-sidebar .job-scout-error,
+#job-scout-sidebar .job-scout-warning {
+  background: #fff8f0;
+  border: 1px solid #f0a060;
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  color: #444d56;
+  line-height: 1.5;
+}
+
+#job-scout-sidebar .job-scout-error {
+  background: #fff0f0;
+  border-color: #f06060;
+}
+
+#job-scout-sidebar .job-scout-error a,
+#job-scout-sidebar .job-scout-warning a {
+  color: #0a66c2;
+  text-decoration: underline;
+}
+
+#job-scout-sidebar #job-scout-retry {
+  align-self: flex-start;
+  background: #0a66c2;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#job-scout-sidebar #job-scout-retry:hover {
+  background: #0958a8;
+}

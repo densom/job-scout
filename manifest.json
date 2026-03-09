@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Job Scout",
+  "version": "1.0.0",
+  "description": "Displays a concise summary sidebar on LinkedIn job postings.",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": [
+    "https://www.linkedin.com/*",
+    "https://api.anthropic.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.linkedin.com/jobs/view/*"],
+      "js": ["content.js"],
+      "css": ["sidebar.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html",
+  "action": {
+    "default_title": "Job Scout"
+  }
+}
