@@ -247,9 +247,25 @@
   }
 
   function init() {
-    createSidebar();
-    runSummarize();
+    chrome.storage.local.get("enabled", ({ enabled = true }) => {
+      if (!enabled) return;
+      createSidebar();
+      runSummarize();
+    });
   }
+
+  chrome.runtime.onMessage.addListener((message) => {
+    if (message.action !== "setEnabled") return;
+    if (message.enabled) {
+      createSidebar();
+      const sidebar = document.getElementById("job-scout-sidebar");
+      if (sidebar) sidebar.style.display = "";
+      runSummarize();
+    } else {
+      const sidebar = document.getElementById("job-scout-sidebar");
+      if (sidebar) sidebar.style.display = "none";
+    }
+  });
 
   // ── SPA navigation detection ────────────────────────────────────────────────
 

@@ -1,5 +1,32 @@
 import { API_URL, MODEL, SYSTEM_PROMPT, buildUserPrompt, parseApiResponse } from "./lib/bg-utils.js";
 
+// ── Enable / disable toggle ──────────────────────────────────────────────────
+
+function updateBadge(enabled) {
+  chrome.action.setBadgeText({ text: enabled ? "" : "OFF" });
+  chrome.action.setBadgeBackgroundColor({ color: "#888888" });
+}
+
+async function syncBadge() {
+  const { enabled = true } = await chrome.storage.local.get("enabled");
+  updateBadge(enabled);
+}
+
+chrome.runtime.onInstalled.addListener(syncBadge);
+chrome.runtime.onStartup.addListener(syncBadge);
+
+chrome.action.onClicked.addListener(async (tab) => {
+  const { enabled = true } = await chrome.storage.local.get("enabled");
+  const next = !enabled;
+  await chrome.storage.local.set({ enabled: next });
+  updateBadge(next);
+  chrome.tabs.sendMessage(tab.id, { action: "setEnabled", enabled: next }).catch(() => {
+    // Content script not present on this tab — no-op
+  });
+});
+
+// ── Message handler ──────────────────────────────────────────────────────────
+
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.action === "openOptions") {
     chrome.runtime.openOptionsPage();
