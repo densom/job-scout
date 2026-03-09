@@ -3,6 +3,7 @@
 
   let currentUrl = location.href;
   let isLoading = false;
+  let lastExtracted = null; // stored for no-api-key debug display
 
   // ── DOM helpers ─────────────────────────────────────────────────────────────
 
@@ -67,7 +68,11 @@
       sel(".jobs-description__content") ||
       sel(".jobs-box__html-content") ||
       document.querySelector("main")?.textContent?.trim() || "";
-    return [title, company, location, description].filter(Boolean).join("\n\n");
+    const salary =
+      sel(".job-details-jobs-unified-top-card__job-insight--highlight") ||
+      sel(".compensation__salary") ||
+      sel("[data-test-salary-range]") || "";
+    return { title, company, location, description, salary };
   }
 
   // ── Render states ───────────────────────────────────────────────────────────
@@ -115,6 +120,30 @@
       el("p", {}, "No API key set."),
       el("p", {}, "Open the ", link, " to add your Anthropic API key.")
     );
+
+    if (lastExtracted) {
+      const { title, company, location, description } = lastExtracted;
+      const fields = [
+        ["Title", title],
+        ["Company", company],
+        ["Location", location],
+        ["Salary", salary],
+        ["Description", description],
+      ];
+      const debugSection = el("div", { className: "job-scout-section job-scout-debug" },
+        el("div", { className: "job-scout-label" }, "Extracted Fields (debug)")
+      );
+      for (const [label, value] of fields) {
+        debugSection.appendChild(
+          el("div", { className: "job-scout-debug-field" },
+            el("span", { className: "job-scout-debug-key" }, label + ": "),
+            el("span", { className: "job-scout-debug-val" }, value || "(empty)")
+          )
+        );
+      }
+      wrapper.appendChild(debugSection);
+    }
+
     content.appendChild(wrapper);
   }
 
@@ -161,6 +190,11 @@
     content.appendChild(section("Location / Remote",
       el("div", { className: "job-scout-value" }, data.location ?? "\u2014")
     ));
+    if (data.salary) {
+      content.appendChild(section("Salary",
+        el("div", { className: "job-scout-value" }, data.salary)
+      ));
+    }
     content.appendChild(section("Role Summary",
       el("div", { className: "job-scout-sub" }, data.roleSummary ?? "\u2014")
     ));
@@ -176,7 +210,9 @@
 
     // Give LinkedIn's SPA a moment to finish rendering job content
     setTimeout(() => {
-      const jobText = extractJobText();
+      lastExtracted = extractJobText();
+      const jobText = [lastExtracted.title, lastExtracted.company, lastExtracted.location, lastExtracted.salary, lastExtracted.description]
+        .filter(Boolean).join("\n\n");
 
       if (jobText.length < 100) {
         isLoading = false;

@@ -4,7 +4,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 360px;
+  width: 380px;
   height: 100vh;
   z-index: 99999;
   display: flex;
@@ -13,7 +13,7 @@
   border-left: 1px solid #d0d7de;
   box-shadow: -2px 0 12px rgba(0, 0, 0, 0.08);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   color: #1a1a1a;
   transition: width 0.2s ease;
   overflow: hidden;
@@ -42,7 +42,7 @@
 
 #job-scout-title-bar {
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.4px;
   white-space: nowrap;
   overflow: hidden;
@@ -93,7 +93,7 @@
 }
 
 #job-scout-sidebar .job-scout-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.6px;
@@ -101,16 +101,16 @@
 }
 
 #job-scout-sidebar .job-scout-value {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: #1a1a1a;
   line-height: 1.4;
 }
 
 #job-scout-sidebar .job-scout-sub {
-  font-size: 12px;
+  font-size: 13px;
   color: #444d56;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 #job-scout-sidebar .job-scout-bullets {
@@ -119,13 +119,13 @@
   list-style: disc;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 #job-scout-sidebar .job-scout-bullets li {
-  font-size: 12px;
+  font-size: 13px;
   color: #444d56;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 /* ── Spinner ─────────────────────────────────────────────────────────────── */
@@ -154,6 +154,32 @@
   to { transform: rotate(360deg); }
 }
 
+/* ── Debug panel (no-api-key mode) ──────────────────────────────────────── */
+
+#job-scout-sidebar .job-scout-debug {
+  background: #f0f4ff;
+  border-color: #b0c4f0;
+  margin-top: 4px;
+}
+
+#job-scout-sidebar .job-scout-debug-field {
+  font-size: 11px;
+  line-height: 1.45;
+  word-break: break-word;
+  padding: 2px 0;
+  border-top: 1px solid #d8e2f8;
+}
+
+#job-scout-sidebar .job-scout-debug-key {
+  font-weight: 700;
+  color: #3a5bc7;
+}
+
+#job-scout-sidebar .job-scout-debug-val {
+  color: #333;
+  white-space: pre-wrap;
+}
+
 /* ── Error / Warning ─────────────────────────────────────────────────────── */
 
 #job-scout-sidebar .job-scout-error,
@@ -165,9 +191,9 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 12px;
+  font-size: 13px;
   color: #444d56;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 #job-scout-sidebar .job-scout-error {
