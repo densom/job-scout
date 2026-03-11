@@ -127,7 +127,7 @@
         ["Title", title],
         ["Company", company],
         ["Location", location],
-        ["Salary", salary],
+        ["Salary", lastExtracted.salary],
         ["Description", description],
       ];
       const debugSection = el("div", { className: "job-scout-section job-scout-debug" },

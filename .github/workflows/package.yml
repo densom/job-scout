@@ -1,0 +1,39 @@
+name: Package Extension
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create extension ZIP
+        run: |
+          zip -r job-scout.zip \
+            manifest.json \
+            background.js \
+            content.js \
+            sidebar.css \
+            options.html \
+            options.js \
+            lib/ \
+            icons/ \
+            README.md \
+            --exclude "*.DS_Store"
+
+      - name: Upload ZIP as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: job-scout-extension
+          path: job-scout.zip
+          retention-days: 30
+
+      - name: Attach ZIP to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: job-scout.zip
